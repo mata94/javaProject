@@ -7,7 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class EdnevnikApplication {
 
 	public static void main(String[] args) {
-
 		SpringApplication.run(EdnevnikApplication.class, args);
 	}
 

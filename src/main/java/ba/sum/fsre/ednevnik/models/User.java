@@ -1,8 +1,9 @@
 package ba.sum.fsre.ednevnik.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class User {
@@ -14,6 +15,9 @@ public class User {
      String ime;
      String prezime;
      String email;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Predmet> predmeti = new ArrayList<>();
+
 
     public User() {
 
@@ -58,5 +62,22 @@ public class User {
         this.email = email;
     }
 
-    
+    public List<Predmet> getPredmeti() {
+        return predmeti;
+    }
+
+    public void setPredmeti(List<Predmet> predmeti) {
+        this.predmeti = predmeti;
+    }
+
+    public void dodajPredmet(Predmet predmet) {
+        predmet.setUser(this);
+        predmeti.add(predmet);
+    }
+
+    public void ukloniPredmet(Predmet predmet) {
+        predmeti.remove(predmet);
+        predmet.setUser(null);
+    }
+
 }
